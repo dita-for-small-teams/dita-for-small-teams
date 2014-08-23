@@ -16,5 +16,10 @@
   <topicgroup><topicmeta><navtitle>Key Definitions</navtitle></topicmeta>
     <mapref href="keydefs/d4st-keydefs.ditamap"/>
   </topicgroup>
-  <topicref href="topics/dita-for-small-teams.dita"/>
+  <topicref href="topics/dita-for-small-teams.dita">
+    <topicref href="topics/dfst-tools.dita">
+      <topicref href="topics/tools-git.dita"/>
+      <topicref href="topics/tools-exist-db.dita"/>
+    </topicref>
+  </topicref>
 </map>

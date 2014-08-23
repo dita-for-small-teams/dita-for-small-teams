@@ -21,5 +21,20 @@
         <navtitle>eXist-db</navtitle>
       </topicmeta>
     </keydef>
+    <keydef keys="cloudbees-site" href="http://www.cloudbees.com"  scope="external" format="html">
+      <topicmeta>
+        <navtitle>CloudBees</navtitle>
+      </topicmeta>
+    </keydef>
+    <keydef keys="bitbucket-site" href="https://bitbucket.org"  scope="external" format="html">
+      <topicmeta>
+        <navtitle>BitBucket</navtitle>
+      </topicmeta>
+    </keydef>
+    <keydef keys="git-site" href="http://git-scm.com"  scope="external" format="html">      
+      <topicmeta>
+        <navtitle>git</navtitle>
+      </topicmeta>
+    </keydef>
   </topicgroup>
 </map>

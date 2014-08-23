@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_hdx_w2s_2p">
+    <title>git: Distributed and Shared Access to Content</title>
+  <shortdesc>The git version control system works well for managing DITA content.</shortdesc>
+    <body>
+      <p>The git version control system is quickly becoming the standard version control system used for projects of all kinds. It is well supported on all operating systems with various clients, it's well documented, and provides all the version control features DITA writers might need.</p>
+    <p>Git uses a somewhat different model than older version control systems like Subversion and CVS. Rather than having a central repository from which all users check out and commit files, git uses local repositories that can then be synced with remote repositories. This approach has a number of advantages but takes some getting used to.</p>
+    <p>In the typical situation where there is a shared master repository and then multiple users contributing to it, the general way of using git is:<ol id="ol_rmr_w3s_2p">
+      <li>Each user creates a local "clone" of the shared repository. This is a complete copy of the master repository, reflecting the entire version history. This means each user has complete access to the full history of all files, even when working off line. Git remembers the source of the clone (the "origin" of your local clone).</li>
+      <li>Each user does their work and commits changes to their local repository as often as they want. These local commits have no immediate effect on the master repository.</li>
+      <li>At appropriate points, users commit their local changes back to the master repository (a git "push" action).</li>
+      <li>When other users push commits to the master repository other users can be notified and can choose to fetch the changes to their local repositories, keeping things in sync.</li>
+      </ol></p>
+    <p>Git also makes heavy use of branches, making it quick and easy to create new branches to manage small units of work and to merge branches together.</p>
+    <p>Typical git usage uses a main or "master" branch to hold complete and tested code or files. Users create local branches to work on specific features and then, as those features are completed, merge them into the "master" branch. These "feature branches" need only ever exist on a user's local repository, with only changes on the master branch pushed to the main repository. Feature branches also avoid conflicts with incoming changes from the master branch, letting you track updates without having to respond to them immediately. </p>
+    <p>In a documentation environment, you might use different branches to manage responding to comments from different reviewers or different branches for different product features you're documenting. Using branches in this way makes it easier to work on different things without accumulating lots of changes that then are difficult to merge or test.</p>
+    <p>There is lots of online documentation for git, including the main <xref keyref="git-site"
+      >git</xref> site. There are several books on git, including <cite>Version Control With Git</cite> from O'Reilly. (<xref href="http://shop.oreilly.com/product/9780596520137.do" format="html"
+      scope="external">http://shop.oreilly.com/product/9780596520137.do</xref>).</p>
+    <p>There are a number of git clients, including the Atlassian SourceTree product (cross-platform) and the GitHub client, and Tortoisegit for Windows.</p>
+    <p>Git can seem complicated but in normal use git is very simple: Create feature branches to manage your local work, add and commit files as you make changes, merge your feature branches to the main branch as appropriate, push your updates to the shared repository, repeat.</p>
+    <p>Git is also very efficient in its handling of large files, so you can use it for managing graphics and media objects. Git stores differences at the byte level and does not make unnecessary copies. In particular, when you create a branch git is not making a new copy of the all the files on the branch, so there is no storage cost to creating branches. This means you don't have to worry about filling up your repository with multiple copies of large media files. Likewise, git is very efficient at fetching files over the network, so once you have a copy of a file and that file doesn't change, it should not cause any network issues.</p>
+    </body>
+  </topic>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_qx1_q4s_2p">
+  <title>eXist-db: Enabling Search and Link Management</title>
+  <shortdesc>The eXist-db system is an XQuery-based XML database that provides powerful search features for XML.</shortdesc>
+  <body>
+    <p>In the DITA for Small Teams model the eXist-db database is used only to enable search and link management. It is <b>not</b> used as the source repository for the DITA content, as it doesn't provide the necessary version management features.</p>
+    <p>DITA content is loaded to eXist-db through the use of git commit hooks (provided by the DITA for Small Teams project) that load the DITA content to the eXist repository whenever it is committed to the git repository. These commit hooks keep the eXist repository in sync with the main content repository.</p>
+    <p>One challenge with using eXist-db and similar databases (such as MarkLogic), is that they are not DTD-aware in the way they store the XML content. That means that the DITA @class and @domains attributes (and other defaulted attributes) that are essential to DITA processing and that are almost always provided through DTDs or other grammars, must be made explicit in the content as stored in eXist. This requires using a particular mechanism for loading content to the repository.</p>
+    <p>The eXist database can be configured to turn validation on or off. Unfortunately, there is a limitation when using Tomcat to serve the eXist Web application, such that it cannot use catalogs that are outside the scope of the eXist Web application. Thus, even if you configure eXists's validation to use the master entity catalog managed by a DITA Open Toolkit, if that Toolkit is outside the scope of the eXist Web application, it will not be used by the eXist xmldb:store() function.</p>
+    <p>One solution is to turn validation off for the repository and use the eXist-specific valdiation:jaxp-parse() function to parse the document with respect to the DTD as this function will use an OT-managed catalog and then provide the resulting parsed document to the xmldb:store() function. This will result in expanded attributes in the DITA content as stored in eXist.</p>
+    <p>Another solution is to deploy the Open Toolkit into the eXist Tomcat Web application so that Tomcat can resolve references to the catalog (WEK: Note that I haven't tested this solution as of 23 Aug 2014).</p>
+  </body>
+</topic>
