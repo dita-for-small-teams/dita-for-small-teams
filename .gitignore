@@ -1,6 +1,7 @@
 *.class
 out/
 temp/
+!html2
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
