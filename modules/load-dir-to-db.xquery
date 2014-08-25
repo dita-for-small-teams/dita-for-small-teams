@@ -13,7 +13,9 @@ import module namespace file="http://exist-db.org/xquery/file";
 
 (: The directory load from: :)
 declare variable $dir external;
+(: The collection to load into: :)
 declare variable $collection external;
+(: URI of entity resolution catalog to use for DTD resolution: :)
 declare variable $catalogURI external;
 
 (: Create the specified collection directory if it does not already
@@ -28,38 +30,41 @@ declare function local:mkCollectionDir($collection as xs:string,
             else xmldb:create-collection($collection, $dir)                 
 };
 
-declare function local:loadFile($dir, $file as element(file:file)) as node()* {
+declare function local:loadFile($dir, 
+                                $file as element(file:file),
+                                $collectionDir) {
     let $filename as xs:string := xs:string($file/@name)
     let $subdirs as xs:string := xs:string($file/@subdir)
-    let $storeCollection := local:mkCollectionDir($collection, $subdirs)
-    let $ext := tokenize($filename, '\\.')[last()]
-    let $isXMl := $ext = ('xml', 'dita', 'ditamap')
-    let $mimeType := if ($isXMl) then 'text/xml' else 'application/octet'
+    let $storeCollection := local:mkCollectionDir($collectionDir, $subdirs)
+    let $ext := tokenize($filename, "\.")[last()]
+    let $isXML := $ext = ('xml', 'dita', 'ditamap')
+    let $mimeType := if ($isXML) then 'text/xml' else 'application/octetstream'
     
-    let $fileURI := string-join(('file://', $dir, $subdirs, $filename), '/')
+    let $fileURI as xs:anyURI := xs:anyURI(string-join(('file:/', $dir, $subdirs, $filename), '/'))
 
-    let $inDoc := if ($isXMl)
-                     then validation:jaxp-parse($fileURI, true(), ($catalogURI))
-                     else xs:anyURI($fileURI)
+
+    let $inDoc as document-node()? := if ($isXML)
+                     then validation:jaxp-parse($fileURI, true(), (xs:anyURI($catalogURI))) 
+                     else ()
 
     let $loadStatus := if ($storeCollection)
                           then xmldb:store($storeCollection, 
                                            $filename, 
-                                           $inDoc,
-                                           $mimeType)                                
-                          else ''
+                                           if ($inDoc) then $inDoc else $fileURI)
+                          else 'collection creation failed'
     
-    return (<file name="{$filename}" loadstatus="{$loadStatus}" collection="{$storeCollection}"/>)
+    return (<file name="{$filename}" loadstatus="{$loadStatus}" collection="{$storeCollection}" fileURI="{$fileURI}"></file>)
 };
 
 
 <loadresult>{
 
 let $dirlist := file:directory-list($dir, '**/*')
-for $file in $dirlist/file:file
-    return (if (not(starts-with(string($file/@name), '.'))) then local:loadFile($dir, $file) else '')
+let $collectionDir := local:mkCollectionDir($collection, tokenize($dir, '/')[last()])
 
-}</loadresult>
+for $file in $dirlist/file:file
+    return (if (not(starts-with(string($file/@name), '.'))) then $file (: local:loadFile($dir, $file, $collectionDir) :)
+else '') }</loadresult>
 
 
 (: ==================== End of Module ================================= :)
