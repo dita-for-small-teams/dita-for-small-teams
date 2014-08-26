@@ -33,6 +33,23 @@ declare function df:class($elem as element(), $classSpec as xs:string) as xs:boo
   return $result
 };
 
+(: Gets the base class name of the context element, e.g. "topic/p" :)
+ declare function df:getBaseClass($context as element()) as xs:string {
+    (: @class value is always "- foo/bar fred/baz " or "+ foo/bar fred/baz " :)
+    let $result as xs:string :=
+      normalize-space(tokenize($context/@class, ' ')[2])
+    return $result
+};
+
+declare function df:getHtmlClass($context as element()) as xs:string {
+  let $result := if ($context/@outputclass)
+                    then string($context/@outputclass)
+                    else name($context)
+  return $result
+};
+
+
+
 (: Gets the navigation title for a topic. If there is a navtitle title alternative,
    returns it, otherwise returns the topic's title.
    
