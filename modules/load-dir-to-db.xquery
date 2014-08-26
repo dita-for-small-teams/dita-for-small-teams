@@ -63,7 +63,7 @@ let $dirlist := file:directory-list($dir, '**/*')
 let $collectionDir := local:mkCollectionDir($collection, tokenize($dir, '/')[last()])
 
 for $file in $dirlist/file:file
-    return (if (not(starts-with(string($file/@name), '.'))) then $file (: local:loadFile($dir, $file, $collectionDir) :)
+    return (if (not(starts-with(string($file/@name), '.'))) then local:loadFile($dir, $file, $collectionDir)
 else '') }</loadresult>
 
 
