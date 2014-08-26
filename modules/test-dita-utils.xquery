@@ -1,6 +1,7 @@
 (: Test cases for the dita-utils XQuery module :)
 
 import module namespace df="http://dita-for-small-teams.org/xquery/modules/dita-utils" at "file:/Users/ekimber/workspace/dita-for-small-teams/modules/util/dita-utils.xquery";
+import module namespace relpath="http://dita-for-small-teams.org/xquery/modules/relpath-utils" at "file:/Users/ekimber/workspace/dita-for-small-teams/modules/util/relpath-utils.xquery";
 
 declare function local:assertEqualStr($test as xs:string, $cand as xs:string) {
    let $result as xs:boolean := $test = $cand
@@ -31,6 +32,14 @@ declare function local:assertTrue($cand as xs:boolean)  {
   let $topic01 := doc("/db/apps/dita-test-01/content/epub-test/chapters/chapter_1.xml")
   let $topicElem := $topic01/*
   return (
+    <test name="relpath:getBaseUri">{local:assertEqualStr('/db/apps/dita-test-01/content/epub-test/chapters/chapter_1.xml',
+                                     relpath:base-uri($topicElem/*[1]))}</test>,
+    <test name="relpath:encodeUri 1">{local:assertEqualStr('/foo/bar%20baz/fred#fragid?queryparam=value',
+                                     relpath:encodeUri('/foo/bar baz/fred#fragid?queryparam=value'))}</test>,
+    <test name="relpath:encodeUri 2">{local:assertEqualStr('/foo/bar%20baz/fred#fragid%5B2%5D',
+                                     relpath:encodeUri('/foo/bar baz/fred#fragid[2]'))}</test>,
+    <test name="relpath:encodeUri 3">{local:assertEqualStr('/foo/bar%20baz/fred?queryparam=value',
+                                     relpath:encodeUri('/foo/bar baz/fred?queryparam=value'))}</test>,
     <test name="getNavtitleForTopic">{local:assertEqualStr('The Cyclone', df:getNavtitleForTopic($topicElem))}</test>,
     <test name="df:class 1">{local:assertTrue(not(df:class($topicElem, 'topic/p')))}</test>,
     <test name="df:class 2">{local:assertTrue(not(df:class($topicElem, 'topic/p')))}</test>,
