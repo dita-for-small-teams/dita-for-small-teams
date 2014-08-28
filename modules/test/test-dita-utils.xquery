@@ -31,7 +31,7 @@ declare function local:assertTrue($cand as xs:boolean)  {
 
 declare function local:testGetRelativePath() {
  let $testDataUri := relpath:newFile(relpath:getParent($thisModuleUri), 
- 'test/getRelativePathTest.xml')
+ 'getRelativePathTest.xml')
  let $testData := doc($testDataUri)
  for $testCase at $pos in $testData/*/test
       let $negate := string($testCase/@negate) = 'true'
