@@ -49,6 +49,16 @@ declare function local:assertTrue($cand as xs:boolean)  {
     <test name="getBaseClass 2">{local:assertNotEqualStr('chapter/chapter', df:getBaseClass($topicElem))}</test>,
     <test name="getHTMLClass 1">{local:assertEqualStr('chapter', df:getHtmlClass($topicElem))}</test>,
     <test name="getHTMLClass 2">{local:assertEqualStr('para-first', df:getHtmlClass($topicElem/body/p[1]))}</test>,
+    <test name="relpath:getName 1">{local:assertEqualStr('filename.ext', 
+        relpath:getName('/foo/bar/filename.ext'))}</test>,
+    <test name="relpath:getName 2">{local:assertEqualStr('filename.ext', 
+        relpath:getName('filename.ext'))}</test>,
+    <test name="relpath:getNamePart 1">{local:assertEqualStr('filename', 
+        relpath:getNamePart('/foo/bar/filename.ext'))}</test>,
+    <test name="relpath:getExtension 1">{local:assertEqualStr('ext', 
+        relpath:getExtension('/foo/bar/filename.ext'))}</test>,
+    <test name="relpath:getParent 1">{local:assertEqualStr('/foo/bar', 
+        relpath:getParent('/foo/bar/filename.ext'))}</test>,
     ''
     )
 

@@ -44,6 +44,67 @@ declare function relpath:base-uri($context as node()) as xs:string {
     return $result
 };
 
+(: Get the name component of a path (the last path token). :)
+declare function relpath:getName($sourcePath as xs:string) as xs:string {
+  let $result := tokenize($sourcePath, '/')[last()]
+  return $result
+};
+
+(: Get the name part (filename with any extension removed). :)
+declare function relpath:getNamePart($sourcePath as xs:string) as xs:string {
+  let $fullName := relpath:getName($sourcePath)
+  let $result := if (contains($fullName, '.'))
+                    then string-join(tokenize($fullName, '\.')[position() lt last()], '.')
+                    else $fullName
+  return $result
+};
+
+(: Get the extension part of the filename, if any. :)
+declare function relpath:getExtension($sourcePath as xs:string) as xs:string {
+  let $fullName := relpath:getName($sourcePath)
+  let $result := if (contains($fullName, '.'))
+      then tokenize($fullName, '\.')[last()]
+      else ''
+   return $result
+};
+
+(: As for Java File.getParent(): returns all but the last
+   components of the path. :)
+declare function relpath:getParent($sourcePath as xs:string) as xs:string {
+  let $fullName := relpath:getName($sourcePath)
+  let $result := string-join(tokenize($sourcePath, '/')[position() lt last()], '/')
+  return $result
+};
+
+(: As for Java File(File, path)): Returns a new a absolute path representing
+   the new file. File must be a path (because XSLT has no way to distinguish
+   a file from a directory). :)
+declare function relpath:newFile($sourcePath as xs:string) as xs:string {
+  let $fullName := relpath:getName($sourcePath)
+  let $result := if (contains($fullName, '.'))
+                    then tokenize($fullName, '\.')[last()]
+                    else ''
+  return $result
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 (: ============== End of module ============== :)
