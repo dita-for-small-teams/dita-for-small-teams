@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test_data>
+  <title>getRelativePath() Tests</title>
+  <test pos="1">
+    <source>/</source>
+    <target>/A</target>
+    <result>A</result>
+  </test>
+  <test pos="2">
+    <source>/A</source>
+    <target>/</target>
+    <result>..</result>
+  </test>
+  <test pos="3">
+    <source>/A</source>
+    <target>/B</target>
+    <result>../B</result>
+  </test>
+  <test pos="4">
+    <source>/A</source>
+    <target>/A/B</target>
+    <result>B</result>
+  </test>
+  <test pos="5">
+    <source>/A/B/C/D</source>
+    <target>/A</target>
+    <result>../../..</result>
+  </test>
+  <test pos="6">
+    <source>/A/B/C/Z/Y</source>
+    <target>/A/B/C/Y/Z</target>
+    <result>../../Y/Z</result>
+  </test>
+  <test pos="7">
+    <source>/A/B/C/D</source>
+    <target>/A/E</target>
+    <result>../../../E</result>
+  </test>
+  <test pos="8" negate="true">
+    <source>/A/B/C/D.xml</source>
+    <target>/A/E</target>
+    <result>../../E</result>
+    <comment>This test should fail because there's no way for the XSLT
+            to know that D.xml is a file and not a directory.
+            The source parameter to relpath must be a directory path,
+            not a filename.</comment>
+  </test>
+  <test>
+    <source>/A/B</source>
+    <target>/A/C/D</target>
+    <result>../C/D</result>
+  </test>
+  <test>
+    <source>/A/B/C</source>
+    <target>/A/B/C/D/E</target>
+    <result>D/E</result>
+  </test>
+  <test>
+    <source>file:///A/B/C</source>
+    <target>http://A/B/C/D/E</target>
+    <result>http://A/B/C/D/E</result>
+  </test>
+  <test>
+    <source>file://A/B/C</source>
+    <target>file://A/B/C/D/E.xml</target>
+    <result>D/E.xml</result>
+  </test>
+</test_data>
