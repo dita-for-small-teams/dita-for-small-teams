@@ -13,7 +13,7 @@
       <revised modified="2014-08-23"/>
     </critdates>
   </topicmeta>
-  <topicgroup><topicmeta><navtitle>Key Definitions</navtitle></topicmeta>
+  <topicgroup><!--<topicmeta><navtitle>Key Definitions</navtitle></topicmeta> -->
     <mapref href="keydefs/d4st-keydefs.ditamap"/>
   </topicgroup>
   <topicref href="topics/dita-for-small-teams.dita">

@@ -3,9 +3,9 @@
 <map>
  <title>Key definitions for the DITA for Small Teams document</title>
   <topicgroup>
-    <topicmeta>
+    <!--<topicmeta>
       <navtitle>External Web sites</navtitle>
-    </topicmeta>
+    </topicmeta>-->
     <keydef keys="github-site" href="http://github.com"  scope="external" format="html">
       <topicmeta>
         <navtitle>Github</navtitle>
