@@ -27,9 +27,8 @@ module namespace df="http://dita-for-small-teams.org/xquery/modules/dita-utils";
    
 :)
 declare function df:class($elem as element(), $classSpec as xs:string) as xs:boolean {
-  let $result := if (contains($elem/@class, concat(' ', $classSpec, ' ')))
-                     then true()
-                     else ends-with($elem/@class, concat(' ', $classSpec))
+  (: Refinement from Bob Thomas :)
+  let $result := matches($elem/@class, concat(' ', normalize-space($classSpec), ' |\$'))
   return $result
 };
 

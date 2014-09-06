@@ -1,6 +1,11 @@
 *.class
 out/
 temp/
+*.epub
+*.zip
+html2/
+html5/
+epub/
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
