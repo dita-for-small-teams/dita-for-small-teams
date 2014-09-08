@@ -49,5 +49,12 @@
         <navtitle>git</navtitle>
       </topicmeta>
     </keydef>
+    <keydef keys="linkedIn-dfst-group" href="https://www.linkedin.com/groups?home=&amp;gid=3968768amp;&amp;trk=anet_ug_hm"
+      scope="external" format="html"
+      >
+      <topicmeta>
+        <navtitle>DITA for Small Teams LinkedIn group</navtitle>
+      </topicmeta>
+    </keydef>
   </topicgroup>
 </map>
