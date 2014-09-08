@@ -16,6 +16,19 @@
         <navtitle>DITA Community on Github</navtitle>
       </topicmeta>
     </keydef>
+    <keydef keys="dita-for-small-teams-github" href="https://github.com/dita-for-small-teams"  scope="external" format="html">
+      <topicmeta>
+        <navtitle>DITA for Small Teams organization on Github</navtitle>
+      </topicmeta>
+    </keydef>
+    <keydef keys="dita-for-small-teams-project" 
+      href="https://github.com/dita-for-small-teams/dita-for-small-teams"  
+      scope="external" 
+      format="html">
+      <topicmeta>
+        <navtitle>DITA for Small Teams organization on Github</navtitle>
+      </topicmeta>
+    </keydef>
     <keydef keys="exist-db-site" href="http://exist-db.org"  scope="external" format="html">
       <topicmeta>
         <navtitle>eXist-db</navtitle>

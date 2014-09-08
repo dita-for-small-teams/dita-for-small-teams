@@ -4,8 +4,9 @@
   <title>DITA For Small Teams</title>
   <shortdesc>The DITA for Small Teams project demonstrates how to use free and low-cost tools to manage DITA content for authoring and delivery as appropriate for small writing teams. </shortdesc>
   <body>
-    <p>DITA for Small Teams is an open-source project. The project is managed on <xref keyref="github-site">Github</xref> within the <xref keyref="dita-community-github"
-      >DITA Community Github organization</xref>.</p>
+    <p>DITA for Small Teams is an open-source project. The project is managed on <xref keyref="github-site">Github</xref> as the <xref keyref="dita-for-small-teams-github"
+      >DITA for Small Teams Github organization</xref>. The main project the <xref keyref="dita-for-small-teams-project"
+      >dita-for-small-teams project</xref>, which uses the other projects as git submodules.</p>
     <p>Authoring and managing DITA content for a team of writers requires the following minimum general facilities:<ul id="ul_uqf_pzr_2p">
       <li>Distributed access to and shared management of the content so that writers can productively and reliably collaborate with each other, such that different writers may work on different maps or topics for the same publication or set of publications at the same time.</li>
       <li>Version management of the content</li>
