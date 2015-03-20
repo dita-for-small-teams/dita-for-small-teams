@@ -25,11 +25,14 @@ declare variable $xmlLoadOptions as element() :=
   <createfilter value="*.xml,*.dita,*.ditamap,*.ditaval"/>
 </options>;
 
+for $file in (file:list($dir, false(), '*.xml,*.dita,*.ditamap,*.ditaval'))
+    let $fullDir :=  concat($dir, '/', $file)
+    return if (file:is-file($file)) then db:replace($db, $file, $fullDir, $xmlLoadOptions) else (),
 
 for $file in (file:list($dir, true()))
     let $fullDir :=  concat($dir, '/', $file)
-    (:return if (file:is-dir($fullDir)) then <cmd>{(concat('db:add("',$db,'","', $fullDir, '","',$file, '",'), $xmlLoadOptions,')')}</cmd> else () :)
-    return if (file:is-dir($fullDir)) then db:add($db, $fullDir, $file, $xmlLoadOptions) else ()
+    (:return if (file:is-dir($fullDir)) then <cmd>{(concat('db:replace("',$db,'","', $fullDir, '","',$file, '",'), $xmlLoadOptions,')')}</cmd> else () :)
+    return if (file:is-dir($fullDir)) then db:replace($db, $file, $fullDir, $xmlLoadOptions) else ()
 
 
 
