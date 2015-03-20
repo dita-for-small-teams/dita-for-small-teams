@@ -56,5 +56,12 @@
         <navtitle>DITA for Small Teams LinkedIn group</navtitle>
       </topicmeta>
     </keydef>
-  </topicgroup>
+      <keydef keys="travis-ci" href="https://travis-ci.org"
+      scope="external" format="html"
+      >
+      <topicmeta>
+        <navtitle>Travis CI</navtitle>
+      </topicmeta>
+    </keydef>
+</topicgroup>
 </map>

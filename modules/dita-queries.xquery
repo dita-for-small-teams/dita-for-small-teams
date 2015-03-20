@@ -2,7 +2,7 @@
 
 <result>{
 
-let $elems := collection("/db/apps/dita-test-01/content")/*
+let $elems := collection("")/*[contains(@class, ' topic/topic ')]
 
   for $elem in $elems return (<topic tagname="{name($elem)}" 
               uri="{document-uri(root($elem))}" 

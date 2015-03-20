@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_qm1_rg2_lr">
+  <title>BaseX: Enabling Search and Link Management</title>
+  <shortdesc>The BaseX system is an XQuery-based XML database that provides powerful search features for XML.</shortdesc>
+  <body>
+    <p>In the DITA for Small Teams model the BaseX database is used only to enable search and link management. It is <b>not</b> used as the source repository for the DITA content, as it doesn't provide the necessary version management features.</p>
+    <p>DITA content is loaded to BaseX through the use of git commit hooks (provided by the DITA for Small Teams project) that load the DITA content to the BaseX repository whenever it is committed to the git repository. These commit hooks keep the BaseX repository in sync with the main content repository.</p>
+    <p>One challenge with using BaseX and similar databases (such as MarkLogic), is that they are not DTD-aware in the way they store the XML content. That means that the DITA @class and @domains attributes (and other defaulted attributes) that are essential to DITA processing and that are almost always provided through DTDs or other grammars, must be made explicit in the content as stored in BaseX. This requires using a particular mechanism for loading content to the repository.</p>
+    <p/>
+  </body>
+  <topic
+    id="topic_kky_g32_lr">
+    <title>Installing BaseX</title>
+    <body>
+      <p>Installers are available for Windows (.exe download) and Mac (via Homebrew). You can also download the Zip package and simply unzip it somewhere and add the <filepath>bin/</filepath> directory to your PATH.</p>
+      <p>After installation you need to set up one or more databases, which you can do using the BaseX GUI application. </p>
+    </body>
+  </topic>
+  <topic
+    id="topic_apk_s32_lr">
+    <title>BaseX: Set Up New Database for DITA Use</title>
+    <body>
+      <p>In order for BaseX to parse DITA documents with all the defaulted attributes available it must use the DTDs or other grammars associated with the documents. To do this you need to tell BaseX to use the XML entity resolution catalog managed by an Open Toolkit instance.</p>
+      <ol
+        id="ol_y4z_gj2_lr">
+        <li>Open the BaseX GUI<p>This is the <cmdname>basexgui</cmdname> command. Under Windows there should be a Start menu item for the BaseX GUI</p></li>
+        <li>Select <menucascade>
+          <uicontrol>Database</uicontrol>
+          <uicontrol>New...</uicontrol>
+          </menucascade> to open the Create Database dialog</li>
+        <li>Choose the directory with the files to initialize the database with, e.g., the root of your documentation git repository.</li>
+        <li>Set the name of the database. <p>The name will be set to the name of the directory you selected. You can use any name you want as long as it doesn't have any spaces or special characters.</p></li>
+        <li>Make sure the input format is set to "XML"</li>
+        <li>Set the File Patterns field to "*.xml,*.dita,*.ditamap"</li>
+        <li>Check the "Skip corrupt (non-well-formed) files.<p>This ensures that the good files will make it in and avoid annoying failures that would otherwise stop the import processing.</p></li>
+        <li>Select the "Parsing" tab</li>
+        <li>Set the check boxes as follows:<ul
+          id="ul_c1m_lk2_lr">
+          <li>Use internal parser: Unchecked</li>
+          <li>Parse DTDs and entities: Checked</li>
+          <li>Strip namespaces: Unchecked</li>
+          <li>Chop whitespaces: Checked</li>
+          <li>Use XInclude: Unchecked</li>
+          <li>Use XML Catalog file: Checked</li>
+          </ul></li>
+        <li>Set the value of the catalog file field to the <filepath>catalog-dita.xml</filepath> file under the Open Toolkit directory for the Open Toolkit you are using to manage your DITA document types.<p>If you are using Oxygen's integrated Open Toolkit, it will be in the <filepath>frameworks/dita/DITA-OT</filepath> directory under the Oxygen installation directory.</p></li>
+        <li>Take all the defaults for the Index tab</li>
+        <li>Click "OK" to create the new database.<p>The files under the directory you selected as the data source should be imported. This may take a minute or two depending on how much volume of content you have.</p><p>Once the import is complete you should see a panel with lots of stuff in it reflecting the documents you loaded. You can select documents in the panel and see their markup in the Result panel.</p></li>
+      </ol>
+    </body>
+  </topic>
+  <topic
+    id="topic_chf_my2_lr">
+    <title>Set Up Git Commit Hooks for BaseX Update</title>
+    <body>
+      <p>TBD</p>
+    </body>
+  </topic>
+</topic>
