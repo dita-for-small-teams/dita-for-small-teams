@@ -4,50 +4,206 @@
   <title>BaseX: Enabling Search and Link Management</title>
   <shortdesc>The BaseX system is an XQuery-based XML database that provides powerful search features for XML.</shortdesc>
   <body>
-    <p>In the DITA for Small Teams model the BaseX database is used only to enable search and link management. It is <b>not</b> used as the source repository for the DITA content, as it doesn't provide the necessary version management features.</p>
+    <p>The DFST model uses an XQuery database to provide link management and DITA-aware search features. Any XQuery database can be used bu the DFST project provides materials for using the BaseX database. Note that in the DFST model, the XQuery database is used only as a read-only database to enable search and link management, it is <b>not</b> used to manage the source documents. Source document management is done in a separate source code repository (e.g., git) that provides the required version control and distributed access features.</p>
+    <p>BaseX is a light-weight, pure-Java XQuery database that is easy to install and use, making it appropriate for use on individual Authors' workstations. It provides a built-in Web server as well as a general database server that can be accessed using special BaseX clients.</p>
     <p>DITA content is loaded to BaseX through the use of git commit hooks (provided by the DITA for Small Teams project) that load the DITA content to the BaseX repository whenever it is committed to the git repository. These commit hooks keep the BaseX repository in sync with the main content repository.</p>
-    <p>One challenge with using BaseX and similar databases (such as MarkLogic), is that they are not DTD-aware in the way they store the XML content. That means that the DITA @class and @domains attributes (and other defaulted attributes) that are essential to DITA processing and that are almost always provided through DTDs or other grammars, must be made explicit in the content as stored in BaseX. This requires using a particular mechanism for loading content to the repository.</p>
-    <p/>
+    <p>The DFST uses the BaseX HTTP server, which provides both a standard BaseX server and an HTTP server that enables Web access to the database.</p>
+    <p>The basic process for setting up BaseX is:<ol
+      id="ol_eh4_5gk_lr">
+      <li>Install the BaseX HTTP server package</li>
+      <li>Set the BaseX configuration file so DITA documents are parsed correctly against the DITA DTDs managed by a DITA Open Toolkit.</li>
+      <li>Start the BaseX HTTP server</li>
+      <li>Set up the BaseX git hooks to automatically copy documents to the BaseX database</li>
+      <li>Test your setup to make sure everything is hooked up correctly</li>
+      </ol></p>
+    <p>Once you have BaseX running you can test the configuration using a temporary database. It's easy to create a new database and add documents to it using the BaseX command-line client or the BaseX Web adminstration client.</p>
   </body>
   <topic
     id="topic_kky_g32_lr">
-    <title>Installing BaseX</title>
+    <title>Install BaseX</title>
     <body>
-      <p>Installers are available for Windows (.exe download) and Mac (via Homebrew). You can also download the Zip package and simply unzip it somewhere and add the <filepath>bin/</filepath> directory to your PATH.</p>
-      <p>After installation you need to set up one or more databases, which you can do using the BaseX GUI application. </p>
+      <p>Installers are available for Windows (.exe download) and Mac (via Homebrew). You can also download the Zip package and simply unzip it somewhere and add the <filepath>bin/</filepath> directory to your PATH environment variable.</p>
+      <p>The build-in BaseX user is "admin" with a password of "admin". If security is a concern you should at least change the administrator password if not create a separate user account for use by the git commit hooks.</p>
+      <note>If you are installing on Windows, the BaseX shell scripts will not be installed. However, these scripts can be used from the git command window that is part of the git Windows support. You can get these scripts from the BaseX Zip distribution and simply copy them into the BaseX bin directory.</note>
     </body>
   </topic>
   <topic
-    id="topic_apk_s32_lr">
-    <title>BaseX: Set Up New Database for DITA Use</title>
+    id="topic_jgj_ndk_lr">
+    <title>One-Time BaseX Setup</title>
     <body>
-      <p>In order for BaseX to parse DITA documents with all the defaulted attributes available it must use the DTDs or other grammars associated with the documents. To do this you need to tell BaseX to use the XML entity resolution catalog managed by an Open Toolkit instance.</p>
+      <p>In order to manage DITA documents properly, BaseX must be configured to use an XML catalog and to turn on DTD parsing. For DITA use you will normally use the <filepath>catalog-dita.xml</filepath> file maintained by the DITA Open Toolkit. </p>
+      <p>To configure BaseX to parse DITA documents, update the BaseX configuration file <filepath>.basex</filepath> in the BaseX installation directory:</p>
       <ol
-        id="ol_y4z_gj2_lr">
-        <li>Open the BaseX GUI<p>This is the <cmdname>basexgui</cmdname> command. Under Windows there should be a Start menu item for the BaseX GUI</p></li>
-        <li>Select <menucascade>
-          <uicontrol>Database</uicontrol>
-          <uicontrol>New...</uicontrol>
-          </menucascade> to open the Create Database dialog</li>
-        <li>Choose the directory with the files to initialize the database with, e.g., the root of your documentation git repository.</li>
-        <li>Set the name of the database. <p>The name will be set to the name of the directory you selected. You can use any name you want as long as it doesn't have any spaces or special characters.</p></li>
-        <li>Make sure the input format is set to "XML"</li>
-        <li>Set the File Patterns field to "*.xml,*.dita,*.ditamap"</li>
-        <li>Check the "Skip corrupt (non-well-formed) files.<p>This ensures that the good files will make it in and avoid annoying failures that would otherwise stop the import processing.</p></li>
-        <li>Select the "Parsing" tab</li>
-        <li>Set the check boxes as follows:<ul
-          id="ul_c1m_lk2_lr">
-          <li>Use internal parser: Unchecked</li>
-          <li>Parse DTDs and entities: Checked</li>
-          <li>Strip namespaces: Unchecked</li>
-          <li>Chop whitespaces: Checked</li>
-          <li>Use XInclude: Unchecked</li>
-          <li>Use XML Catalog file: Checked</li>
-          </ul></li>
-        <li>Set the value of the catalog file field to the <filepath>catalog-dita.xml</filepath> file under the Open Toolkit directory for the Open Toolkit you are using to manage your DITA document types.<p>If you are using Oxygen's integrated Open Toolkit, it will be in the <filepath>frameworks/dita/DITA-OT</filepath> directory under the Oxygen installation directory.</p></li>
-        <li>Take all the defaults for the Index tab</li>
-        <li>Click "OK" to create the new database.<p>The files under the directory you selected as the data source should be imported. This may take a minute or two depending on how much volume of content you have.</p><p>Once the import is complete you should see a panel with lots of stuff in it reflecting the documents you loaded. You can select documents in the panel and see their markup in the Result panel.</p></li>
+        id="ol_xkc_tdk_lr">
+        <li>Find the location of the DITA Open Toolkit you will use to manage the master XML catalog file for your DITA documents.<p>If this is the Open Toolkit integrated with oXygenXML, the toolkit will be in the <filepath>frameworks/dita/DITA-OT</filepath> directory under the oXygenXML installation directory.</p><p>You will need the absolute path of the Open Toolkit directory, e.g., <filepath>/Applications/oxygen/frameworks/dita/DITA-OT</filepath> or <filepath>C:\Program Files\Oxygen XML Editor 16\frameworks\dita\DITA-OT</filepath>.</p></li>
+        <li>Find the BaseX installation directory.<p>The exact location will depend on your operating system and how you installed it. The default location on Windows is <filepath>C:\Program Files (x86)\BaseX</filepath>. For OS X and Linux the command <codeph>which basexhttp</codeph> should show the location (the value returned will include the <filepath>bin/</filepath> directory—you want the parent of the <filepath>bin/</filepath> directory).</p></li>
+        <li>Edit the file <filepath>.basex</filepath> in a text editor and add the following lines at the end of the file:<codeblock>CATFILE = <varname>OT directory</varname>/catalog-dita.xml
+DTD = true
+CHOP = false</codeblock><p>Where <varname>OT directory</varname> is the Open Toolkit directory you got in Step 1.</p><p>On OS X, my .basex file looks like this:<codeblock># General Options
+DEBUG = false
+DBPATH = /Users/ekimber/apps/basex/data
+REPOPATH = /Users/ekimber/apps/basex/repo
+LANG = English
+LANGKEYS = false
+GLOBALLOCK = false
+
+# Client/Server Architecture
+HOST = localhost
+PORT = 1984
+SERVERPORT = 1984
+EVENTPORT = 1985
+USER = 
+PASSWORD = 
+SERVERHOST = 
+PROXYHOST = 
+PROXYPORT = 0
+NONPROXYHOSTS = 
+TIMEOUT = 30
+KEEPALIVE = 600
+PARALLEL = 8
+LOG = true
+LOGMSGMAXLEN = 1000
+
+# HTTP Services
+WEBPATH = /Users/ekimber/apps/basex/webapp
+RESTXQPATH = 
+HTTPLOCAL = false
+STOPPORT = 8985
+AUTHMETHOD = Basic
+
+# Local Options
+CATFILE = /Applications/oxygen/frameworks/dita/DITA-OT/catalog-dita.xml
+DTD = true
+CHOP = false</codeblock></p><p>On Windows, the CATFILE option looks like this:<codeblock>CATFILE = C:\Program Files\Oxygen XML Editor 16\frameworks\dita\DITA-OT\catalog-dita.xml</codeblock></p></li>
+        <li>Save the file.</li>
       </ol>
+      <p>To test this configuration you'll need to have a database, add a DITA document to it, and verify that all the default attributes were expanded on load. One indication that the configuration is correct is if it takes noticeable time to load DITA documents: BaseX has to fetch the DTDs and parse the documents with respect to them, which is much slower than just loading the XML without validating first.</p>
+      <p>There is one remaining setup task for which you need a running BaseX server: installing the DFST XQuery modules.</p>
+    </body>
+  </topic>
+  <topic
+    id="topic_ayl_c3j_lr">
+    <title>Start the BaseX HTTP Server</title>
+    <body>
+      <p>The DFST setup uses BaseX in two ways: through git commit hooks that update XML documents in the BaseX database and through a Web application that enables search and provides DITA link management services.</p>
+      <p>To support this dual use of BaseX you must run the BaseX HTTP server. The BaseX HTTP server then provides both the BaseX server (accessed through BaseX clients, such as the BaseX command-line client) and the BaseX HTTP server. You can run the server as a background service.</p>
+      <p>See the BaseX command-line options documentation for details. </p>
+      <p>To start the BaseX HTTP server: <ul
+        id="ul_j5x_hkj_lr">
+        <li>OS X or Linux: Run the command <codeph>basexhttp -B</codeph> to start the server as a background service.</li>
+        <li>Windows: Use the "Start BaseX server" item in the BaseX start menu or run the command <codeph>basexhttp -B</codeph> </li>
+        </ul></p>
+      <p>Once you have the HTTP server running you can connect to it in serveral ways, including using WebDAV, either from OxygenXML or from another WebDAV client. You should be able to set up the database as a WebDAV shared drive under all operating systems. See the BaseX documentation for details.</p>
+      <p>The DFST git commit hooks use the BaseX command-line client to connect to the BaseX server. The DFST DITA link management Web application is accessed via normal HTTP through a Web browser.</p>
+    </body>
+  </topic>
+  <topic
+    id="topic_lgq_nfk_lr">
+    <title>Create a BaseX Database and Load Some DITA Content</title>
+    <body>
+      <p>The BaseX server can manage any number of databases. A database is simply a named collection of XML documents.</p>
+      <p>To test the BaseX setup you can try loading the "garage" samples that come with the Open Toolkit:<ol
+        id="ol_al2_klk_lr">
+        <li>Open a command window and run the command <codeph>basexclient</codeph>.<p>You should be prompted to enter the BaseX user ID and password (e.g., "admin", "admin").</p><p>If the command does not work, check your PATH environment variable or change directories to the BaseX <filepath>bin/</filepath> directory.</p><p>Once you have logged in you should see the BaseX command prompt:<codeblock>c:\>basexclient
+Username: admin
+Password:
+BaseX 8.0.3 [Client]
+Try help to get more information.
+
+></codeblock></p></li>
+        <li>Create a new database to hold the sample documents:<codeblock>> <b>create database samples</b>
+Database 'samples' created in 23.95 ms.
+></codeblock></li>
+        <li>Use the <cmdname>list</cmdname> command to list the databases available:<codeblock>> <b>list</b>
+Name     Resources  Size  Input Path
+------------------------------------
+samples  0          4532
+
+1 database(s).
+></codeblock></li>
+        <li>Open the "samples" database to make it the current database:<codeblock>> <b>open samples</b>
+Database 'samples' was opened in 0.02 ms.
+></codeblock></li>
+        <li>Add the samples documents to the database:<codeblock>> <b>add to samples c:\Program Files\Oxygen XML Editor 16\frameworks\dita\DITA-OT\samples</b>
+Resource(s) added in 2092.7 ms.
+></codeblock><p>Set the directory to wherever your Open Toolkit actually is.</p><p>The "<codeph>to samples</codeph>" part of the command adds the documents in the <filepath>samples</filepath> folder to a directory named "samples" in the database.</p><p>It should take a few seconds to load the documents. If the load was instantaneous, then the catalog and DTD parsing are not set up correctly.</p></li>
+        <li>List the files in the database:<codeblock>> <b>list samples</b>
+Input Path                                    Type  Content-Type     Size
+-------------------------------------------------------------------------
+samples/ant_sample/sample_all.xml             xml   application/xml  57
+samples/ant_sample/sample_docbook.xml         xml   application/xml  42
+samples/ant_sample/sample_eclipsehelp.xml     xml   application/xml  42
+samples/ant_sample/sample_htmlhelp.xml        xml   application/xml  42
+samples/ant_sample/sample_javahelp.xml        xml   application/xml  42
+samples/ant_sample/sample_odt.xml             xml   application/xml  42
+samples/ant_sample/sample_pdf.xml             xml   application/xml  42
+samples/ant_sample/sample_tocjs.xml           xml   application/xml  42
+samples/ant_sample/sample_troff.xml           xml   application/xml  42
+samples/ant_sample/sample_wordrtf.xml         xml   application/xml  42
+samples/ant_sample/sample_xhtml.xml           xml   application/xml  54
+samples/ant_sample/sample_xhtml_plus_css.xml  xml   application/xml  73
+samples/ant_sample/template_docbook.xml       xml   application/xml  38
+samples/ant_sample/template_eclipsehelp.xml   xml   application/xml  38
+samples/ant_sample/template_htmlhelp.xml      xml   application/xml  38
+samples/ant_sample/template_javahelp.xml      xml   application/xml  38
+samples/ant_sample/template_odt.xml           xml   application/xml  38
+samples/ant_sample/template_pdf.xml           xml   application/xml  38
+samples/ant_sample/template_wordrtf.xml       xml   application/xml  38
+samples/ant_sample/template_xhtml.xml         xml   application/xml  37
+samples/concepts/garageconceptsoverview.xml   xml   application/xml  17
+samples/concepts/lawnmower.xml                xml   application/xml  20
+samples/concepts/oil.xml                      xml   application/xml  27
+samples/concepts/paint.xml                    xml   application/xml  27
+samples/concepts/shelving.xml                 xml   application/xml  27
+samples/concepts/snowshovel.xml               xml   application/xml  27
+samples/concepts/toolbox.xml                  xml   application/xml  32
+samples/concepts/tools.xml                    xml   application/xml  67
+samples/concepts/waterhose.xml                xml   application/xml  27
+samples/concepts/wheelbarrow.xml              xml   application/xml  17
+samples/concepts/workbench.xml                xml   application/xml  24
+samples/concepts/wwfluid.xml                  xml   application/xml  20
+samples/tasks/changingtheoil.xml              xml   application/xml  69
+samples/tasks/garagetaskoverview.xml          xml   application/xml  17
+samples/tasks/organizing.xml                  xml   application/xml  17
+samples/tasks/shovellingsnow.xml              xml   application/xml  47
+samples/tasks/spraypainting.xml               xml   application/xml  56
+samples/tasks/takinggarbage.xml               xml   application/xml  39
+samples/tasks/washingthecar.xml               xml   application/xml  68
+
+Resources.
+></codeblock></li>
+        <li>Verify that the @class attributes were correctly expanded:<codeblock>> <b>xquery /*/@class</b>
+class="- topic/topic concept/concept "
+class="- topic/topic concept/concept "
+class="- topic/topic concept/concept "
+class="- topic/topic concept/concept "
+class="- topic/topic concept/concept "
+class="- topic/topic concept/concept "
+class="- topic/topic concept/concept "
+class="- topic/topic concept/concept "
+class="- topic/topic concept/concept "
+class="- topic/topic concept/concept "
+class="- topic/topic concept/concept "
+class="- topic/topic concept/concept "
+class="- topic/topic task/task "
+class="- topic/topic concept/concept "
+class="- topic/topic task/task "
+class="- topic/topic task/task "
+class="- topic/topic task/task "
+class="- topic/topic task/task "
+class="- topic/topic task/task "
+Query executed in 2.57 ms.
+></codeblock><p>This XQuery simply returns all the @class attributes of all the root elements in the database. If those elements have @class attributes then all the elements will.</p></li>
+        </ol></p>
+      <p>You have now verified that your BaseX server is correctly configured to manage DITA documents and is ready to get updates from your git repository.</p>
+      <p>If you want, you can remove the samples database:<codeblock>> <b>drop database samples</b>
+Database 'samples' was dropped.
+> list
+Name  Resources  Size  Input Path
+---------------------------------
+
+0 database(s).
+></codeblock></p>
     </body>
   </topic>
   <topic

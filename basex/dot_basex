@@ -1,0 +1,8 @@
+# Configuration options to add to the .basex file in your
+# basex home directory (wherever the basex application is installed)
+
+# Local Options
+CATFILE = /Applications/oxygen/frameworks/dita/DITA-OT/catalog-dita.xml
+DTD = true
+CHOP = false
+# End local options
