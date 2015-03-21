@@ -207,10 +207,33 @@ Name  Resources  Size  Input Path
     </body>
   </topic>
   <topic
+    id="topic_ann_zqk_lr">
+    <title>Install DFST XQuery Modules</title>
+    <body>
+      <p>The DFST XQuery modules provide the DITA-specific link management and DITA-aware searching features you need.</p>
+      <p>To install the modules, you run the script <filepath>install-modules.sh</filepath> or <filepath>install-modules.bat</filepath> from the <filepath>basex/scripts</filepath> directory:<ol
+        id="ol_fkh_crk_lr">
+        <li>Open a command window and navigate to the <filepath>basex/scripts/</filepath> directory:<codeblock>c:\>cd c:\projects\dita-for-small-teams\basex\scripts
+</codeblock><p>Or</p><codeblock>
+c:\projects\dita-for-small-teams\basex\scripts></codeblock></li>
+        <li>Run the <filepath>install-modules</filepath> script:<codeblock>c:\projects\dita-for-small-teams\basex\scripts>install-modules.bat admin admin
+Installing DFST XQuery packages:
+Name                                                   Version  Type      Path
+-----------------------------------------------------------------------------------------------------------------------------------
+org.dita-for-small-teams.xquery.modules.dita-utils     -        Internal  org/dita-for-small-teams/xquery/modules/dita-utils.xqm
+org.dita-for-small-teams.xquery.modules.relpath-utils  -        Internal  org/dita-for-small-teams/xquery/modules/relpath-utils.xqm
+
+2 package(s).
+
+c:\projects\dita-for-small-teams\basex\scripts></codeblock></li>
+        </ol></p>
+    </body>
+  </topic>
+  <topic
     id="topic_chf_my2_lr">
     <title>Set Up Git Commit Hooks for BaseX Update</title>
     <body>
-      <p>TBD</p>
+      <p/>
     </body>
   </topic>
 </topic>
