@@ -1,3 +1,6 @@
 [submodule "commit-hooks/git"]
 	path = commit-hooks/git
 	url = https://github.com/dita-for-small-teams/dfst-git-commit-hooks.git
+[submodule "sample-project"]
+	path = sample-project
+	url = https://github.com/dita-for-small-teams/dfst-sample-project.git
