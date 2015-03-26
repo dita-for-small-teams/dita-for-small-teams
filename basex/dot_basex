@@ -5,4 +5,8 @@
 CATFILE = /Applications/oxygen/frameworks/dita/DITA-OT/catalog-dita.xml
 DTD = true
 CHOP = false
-# End local options
+# Options for  BaseX client connection to a local server
+USER = admin
+PASSWORD = admin
+HOST = localhost
+PORT = 1984

@@ -233,7 +233,27 @@ c:\projects\dita-for-small-teams\basex\scripts></codeblock></li>
     id="topic_chf_my2_lr">
     <title>Set Up Git Commit Hooks for BaseX Update</title>
     <body>
-      <p>TBD</p>
+      <p>The DFST git commit hooks for BaseX keep BaseX in sync with your git repository.</p>
+      <p>Using the commit requires the following:<ul
+        id="ul_xmz_zs5_mr">
+        <li>The BaseX <filepath>bin/</filepath> directory must be in your PATH or Path environment variable. You should be able to type "basex" or "basexclient" on the command line. This allows the git hook scripts to run the required BaseX commands. You should have set this up when you installed BaseX.</li>
+        <li>The BaseX server connection properties must be set in the <filepath>.basex</filepath> file. This file can be in the main BaseX installation directory or in your user home directory. This allows the basexclient command to connect and authenticate to the BaseX server without the need for a separate configuration file.</li>
+        <li>The DFST git hooks must be copied to or linked from the <filepath>.git/hooks/</filepath> directory in the git repositories you want to manage. These hooks keep the BaseX databases in sync with your git repositories.</li>
+        </ul></p>
+      <p>To set up the git hooks, do the following:<ol
+        id="ol_oh1_xs5_mr">
+        <li>Edit the <filepath>.basex</filepath> configuration file, either in the main BaseX installation directory or in your home directory, and add the following settings:<codeblock>USER = admin
+PASSWORD = admin
+HOST = localhost
+PORT = 1984</codeblock><p>These values are the BaseX default. Your configuration must reflect any changes you made from default after you installed BaseX.</p><p>For OS X: If you want to put the <filepath>.basex</filepath> configuration file in your home directory, you must delete the <filepath>.basexhome</filepath> from the BaseX installation directory, otherwise BaseX will not read the <filepath>.basex</filepath> file in your home directory.</p></li>
+        <li>Copy the files from the DFST project <filepath>commit-hooks/git/</filepath> directory to the <filepath>.git/hooks</filepath> directory under the root directory of your git repository.<p>For OS X and Linux: Instead of copying the files you can link to the files in the DFST project. This makes it easier to keep the hooks updated. To do this, use the <cmdname>ln -s</cmdname> command like so:<codeblock>ekimber:project-01$ cd .git/hooks
+ekimber:hooks$ ln -s ~/dita-for-small-teams/commit-hooks/git/basexLoadOrUpdateBranch
+ekimber:hooks$ ln -s ~/dita-for-small-teams/commit-hooks/git/post-checkout
+ekimber:hooks$ ln -s ~/dita-for-small-teams/commit-hooks/git/post-commit
+ekimber:hooks$ ln -s ~/dita-for-small-teams/commit-hooks/git/post-merge
+ekimber:hooks$ ln -s ~/dita-for-small-teams/commit-hooks/git/recordGitStateDetails
+ekimber:hooks$ ln -s ~/dita-for-small-teams/commit-hooks/git/updateBaseXForCOmmitOrMerge</codeblock></p><p>For OS X and Linux: Make sure all the commit hook files are executeable. They should be as they come from the DFST git repository but they may not be for whatever reason. To make them executable, apply this command to the directory that contains the scripts:<codeblock>ekimber:dita-for-small-teams$ chmod a+x commit-hooks/git/*</codeblock></p></li>
+        </ol></p>
     </body>
   </topic>
 </topic>
