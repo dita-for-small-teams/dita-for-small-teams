@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project version="16.1">
+<project version="17.1">
     <meta>
         <filters directoryPatterns="" filePatterns="" positiveFilePatterns="" showHiddenFiles="false"/>
         <options>
-            <serialized version="16.1" xml:space="preserve">
-                <map>
+            <serialized version="17.1" xml:space="preserve">
+                <serializableOrderedMap>
                     <entry>
                         <String>enable.project.master.files.support</String>
                         <Boolean>true</Boolean>
                     </entry>
-                </map>
+                </serializableOrderedMap>
             </serialized>
         </options>
     </meta>
     <projectTree name="dfst.xpr">
+        <folder path="../../dita-ot/"/>
+        <folder path="../../temp/"/>
+        <folder path="../../temp/dbtest/"/>
+        <folder path="../../workspace-d4p/"/>
+        <folder path="../../workspace-d4p/dita4publishers/"/>
+        <folder path="../"/>
+        <folder path="../dfst-docker/"/>
         <folder path="."/>
+        <folder path="../../workspace-dita-community/"/>
+        <folder path="../../workspace/dita-12-spec/"/>
+        <folder path="../../workspace/dita-12-spec_1104/"/>
+        <file name="../../Downloads/dfst-linkmgmt-basex-develop.zip"/>
+        <file name="../../../../Volumes/WEK%20Laptop%20Backup/Users/ekimber/eliot/xcom-dos.zip"/>
     </projectTree>
 </project>
