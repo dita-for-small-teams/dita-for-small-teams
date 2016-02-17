@@ -4,3 +4,6 @@
 [submodule "sample-project"]
 	path = sample-project
 	url = https://github.com/dita-for-small-teams/dfst-sample-project.git
+[submodule "dfst-docker"]
+	path = dfst-docker
+	url = git@github.com:dita-for-small-teams/dfst-docker.git
