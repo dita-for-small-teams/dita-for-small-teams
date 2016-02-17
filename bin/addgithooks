@@ -1,0 +1,42 @@
+#!/bin/sh
+#
+# Script to symlink the DFST Link Manager hooks
+# into a git repository.
+#
+# Argument is the path of the git repository to add
+# the links to.
+#
+#-------------------------
+repoPath=$1
+echo "repoPath=\"${repoPath}\""
+curdir="$PWD"
+
+# Get directory containing this script:
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+
+DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+
+if [ -e "${repoPath}" ]; then
+   echo "Adding links to Link Manager commit hooks..."
+   cd "${repoPath}/.git/hooks"
+   ln -s "$DIR/../commit-hooks/git/common"
+   ln -s "$DIR/../commit-hooks/git/client-side/post-checkout"
+   ln -s "$DIR/../commit-hooks/git/client-side/post-commit"
+   ln -s "$DIR/../commit-hooks/git/client-side/post-merge"
+   echo "Result is:"
+   ls -al
+else
+   echo "Can't find repository path \"${repoPath}\""
+      
+fi
+
+cd "${curdir}"
+
+#
+# End of script
+#
