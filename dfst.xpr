@@ -22,7 +22,7 @@
         <folder path="../../workspace-d4p/"/>
         <folder path="../../workspace-d4p/dita4publishers/"/>
         <folder path="../"/>
-        <folder path="../dfst-docker/"/>
+        <folder path="../basex-drmacro/"/>
         <folder path="."/>
         <folder path="../../workspace-dita-community/"/>
         <folder path="../../workspace/dita-12-spec/"/>
