@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." name="dita-for-small-teams">
+  
+  <property name="dist-dir" value="${basedir}/dist"/>
+  <property name="release-dir" value="${basedir}/releases"/>
+  <property name="dfst-dir" value="${basedir}/dfst-docker"/>
+  <property name="version" value="0-9-0"/>
+  
+  <target name="dist" description="Create distribution package locally">
+    <delete includeemptydirs="true">
+      <fileset dir="${dist-dir}/dfst-docker">
+        <include name="**/*" />
+      </fileset>
+    </delete>
+    <copy todir="${dist-dir}/dfst-docker">
+      <fileset dir="${dfst-dir}">
+        <include name="dfst"/>
+        <include name="README.md"/>
+        <include name="LICENSE"/>
+        <include name="containers/**/*"/>
+        <exclude name="containers/sandbox"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="release" depends="dist" description="Make a release Zip for the distribution">
+    <zip destfile="${release-dir}/dfst-docker-${version}.zip">
+      <fileset dir="${dist-dir}">
+        <include name="*/**"/>
+      </fileset>
+    </zip>
+  </target>
+  
+</project>
