@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." name="dita-for-small-teams">
   
-  <property name="dist-dir" value="${basedir}/dist"/>
-  <property name="release-dir" value="${basedir}/releases"/>
-  <property name="dfst-dir" value="${basedir}/dfst-docker"/>
+  <property name="workspace-dir" location="${basedir}/.."/>
+  <property name="dist-dir" location="${basedir}/dist"/>
+  <property name="release-dir" location="${basedir}/releases"/>
+  <property name="dfst-dir" location="${basedir}/dfst-docker"/>
   <property name="version" value="0-9-0"/>
   
   <target name="dist" description="Create distribution package locally">
@@ -31,4 +32,31 @@
     </zip>
   </target>
   
+  <target name="generate-dfst-docker-docs" description="Generate renditions of the DFST Docker documentation">
+    <!-- 
+      docker run -v /Users/ekimber/workspace-dfst:/opt/dita-ot/data dfst/dita-ot  
+      ant -Dargs.input=/opt/dita-ot/data/dita-for-small-teams/dfst-docker/docs/dfst-docker-guide.ditamap  
+      -Dtranstype=d4p-html5   
+      -Doutput.dir=/opt/dita-ot/data/dfst-docker-ghpages
+      -->
+    <exec searchpath="true"
+      executable="docker"
+      failonerror="true"
+      >
+      <arg value="run"/>
+      <arg value="-v"/>
+      <arg value="${workspace-dir}:/opt/dita-ot/data"/>
+      <arg value="dfst/dita-ot"/>
+      <arg value="ant"/>
+      <arg value="-Dargs.input=/opt/dita-ot/data/dita-for-small-teams/dfst-docker/docs/dfst-docker-guide.ditamap"/>
+      <arg value="-Dtranstype=d4p-html5"/>
+      <arg value="-Doutput.dir=/opt/dita-ot/data/dfst-docker-ghpages"/>
+    </exec>
+  </target>
+ 
+  <target name="publish-dfst-docker-docs" depends="generate-dfst-docker-docs"
+    description="Generate the DFST Docker docs and publish to GitHub"
+    >
+    <!-- Do git commit and push of the generated docs -->
+  </target>
 </project>
