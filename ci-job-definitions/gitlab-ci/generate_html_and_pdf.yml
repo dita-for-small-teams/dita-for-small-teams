@@ -1,0 +1,13 @@
+#
+# GitLab CI job setup to run the DITA OT and generate
+# HTML and PDF. It's intended to be run from
+# a Docker container based on one of the DITA-OT images.
+#
+before_script:
+  # Before script stuff TBD
+  
+html:
+  # HTML generation TBD
+  
+pdf:
+  # PDF generation TBD  
