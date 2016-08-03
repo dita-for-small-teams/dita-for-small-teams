@@ -1,23 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
-<topic id="topic_x3q_sxr_2p">
-  <title>DITA For Small Teams</title>
-  <shortdesc>The DITA for Small Teams project demonstrates how to use free and low-cost tools to manage DITA content for authoring and delivery as appropriate for small writing teams. </shortdesc>
-  <body>
-    <p>DITA for Small Teams is an open-source project. The project is managed on <xref keyref="github-site">Github</xref> as the <xref keyref="dita-for-small-teams-github"
-      >DITA for Small Teams Github organization</xref>. The main project the <xref keyref="dita-for-small-teams-project"
-      >dita-for-small-teams project</xref>, which uses the other projects as git submodules.</p>
-    <note>The DITA for Small Teams Github organization is distinct from the <xref keyref="linkedIn-dfst-group"
-      >LinkedIn DITA for Small Teams group</xref> managed by Darryl Tewes. They are related only by coincidence of names and a common desire to support the use of DITA by small teams.</note>
-    <p>Authoring and managing DITA content for a team of writers requires the following minimum general facilities:<ul id="ul_uqf_pzr_2p">
-      <li>Distributed access to and shared management of the content so that writers can productively and reliably collaborate with each other, such that different writers may work on different maps or topics for the same publication or set of publications at the same time.</li>
-      <li>Version management of the content</li>
-      <li>Production of deliverables, such as HTML, online help, and PDF, from the DITA content. Ideally this production is automated as much as possible.</li>
-      <li>Integration with the authoring tools the writers use, such as the oXygen XML, XMetal, and Arbortext Editor editing tools.</li>
-      </ul></p>
-    <p>If the content involves significant re-use or hyperlinking among publications or the volume of content is large (1000s or 10s of 1000s of topics), the team will almost certainly require assistance in finding content quickly and managing the dependencies among maps and topics ("link management").</p>
-    <p>These are all features that are offered by commercial content management systems to one degree or another. Commercial CMS systems can offer a lot of value but they also represent a significant monetary and time investment, an investment that many teams either simply do not have or do not have early in the process of adopting DITA. </p>
-    <p>Most, if not all, of these facilities: distributed access, version management, production automation, tool integration, and even link management, can be provided by free or low-cost tools and services at the cost of some time spent setting up and maintaining the system. This makes it possible for even the smallest writing team to get the benefit of sophisticated, DITA-aware content management, with a very small initial investment of time and money. Most of the money spent will be on authoring tool licenses and most of the time spent is just getting the necessary tools and services in place: none of them are difficult to acquire, install, or configure.</p>
-    <p>In most cases it should be possible, following the guidelines provided here, to set up a working collaborative DITA authoring and production environment in just a few hours.</p>
-  </body>
-</topic>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA 1.3 Topic//EN" "technicalContent/dtd/topic.dtd" [
+]>
+
+
+
+<topic id = "topic_x3q_sxr_2p"
+    xmlns:ditaarch = "http://dita.oasis-open.org/architecture/2005/">
+<title>DITA For Small Teams</title>
+<shortdesc>The DITA for Small Teams project (DFST) demonstrates
+how to use free and low-cost tools to manage DITA content for authoring
+and delivery as appropriate for small writing teams.</shortdesc>
+<body><p>The DITA for Small Teams project has the following goals:<ol>
+<li><p>Document the fact that it is possible to set up a useful
+system for DITA authoring, management, and product using open-source
+tools and tools commonly available in enterprises.</p></li>
+<li><p>Provide a “download and use” set of tools reflecting the
+DFST approach to serve as a starting point for exploring DITA generally
+and setting up a system for your own use.</p></li></ol></p>
+<p>DITA for Small Teams is an open-source project. The project is
+managed on <xref  keyref = "github-site">Github</xref> as the <xref
+ keyref = "dita-for-small-teams-github">DITA for Small Teams Github
+organization</xref>. The main project the <xref  keyref = "dita-for-small-teams-project">dita-for-small-teams
+project</xref>, which uses the other projects as git submodules.</p>
+<note>The DITA for Small Teams Github organization is distinct from the <xref
+ keyref = "linkedIn-dfst-group">LinkedIn DITA for Small Teams group</xref> managed
+by Darryl Tewes. They are related only by coincidence of names and
+a common desire to support the use of DITA by small teams.</note>
+<p>For the second of these goals the DFST team is actively working
+on a Docker-based solution with a goal of having something working
+in the May 2016 time frame. The code for this activity is on the
+project’s develop branch.</p>
+<p>Authoring and managing DITA content for a team of writers requires
+the following minimum general facilities:<ul id = "ul_uqf_pzr_2p"><li>Distributed
+access to and shared management of the content so that writers can
+productively and reliably collaborate with each other, such that
+different writers may work on different maps or topics for the same publication
+or set of publications at the same time.</li>
+<li>Version management of the content</li>
+<li>Production of deliverables, such as HTML, online help, and PDF,
+from the DITA content. Ideally this production is automated as much
+as possible.</li>
+<li>Integration with the authoring tools the writers use, such as
+the oXygen XML, XMetal, and Arbortext Editor editing tools.</li></ul></p>
+<p>If the content involves significant re-use or hyperlinking among
+publications or the volume of content is large (1000s or 10s of
+1000s of topics), the team will almost certainly require assistance
+in finding content quickly and managing the dependencies among maps
+and topics ("link management").</p>
+<p>These are all features that are offered by commercial content
+management systems to one degree or another. Commercial CMS systems
+can offer a lot of value but they also represent a significant monetary
+and time investment, an investment that many teams either simply
+cannot make or do not have budget for early in the process of adopting
+DITA.</p>
+<p>Most, if not all, of these facilities—distributed access, version
+management, production automation, tool integration, and even link
+management—can be provided by free or low-cost tools and services
+at the cost of some time spent setting up and maintaining the system.
+This makes it possible for even the smallest writing team to get
+the benefit of sophisticated, DITA-aware content management, with
+a very small initial investment of time and money. Most of the money
+spent will be on authoring tool licenses and most of the time spent
+is just getting the necessary tools and services in place: none
+of them are difficult to acquire, install, or configure.</p>
+<p>In most cases it should be possible, following the guidelines
+provided here, to set up a working collaborative DITA authoring
+and production environment in just a few hours.</p>
+<p>The DFST project’s Docker-based solution, once realized, will
+make it about as easy as it can be to provision and use the DFST
+approach. Docker makes it possible to package disparate tools together
+in a convenience but flexible way and manage them as a logical unit.
+Because each tool or supporting component is managed as a separate
+Docker container it is relatively easy to adapt the set of tools
+and configuration details to suit your specific needs. The same
+Docker containers can be run on a single personal machine, on a
+shared server machine within an enterprise, or in a hosted environment
+such as Amazon Web Services or Microsoft Azure with a minimum of
+effort.</p></body></topic>

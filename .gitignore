@@ -6,6 +6,7 @@ temp/
 html2/
 html5/
 epub/
+*backup*
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
