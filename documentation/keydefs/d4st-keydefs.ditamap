@@ -6,6 +6,12 @@
     <!--<topicmeta>
       <navtitle>External Web sites</navtitle>
     </topicmeta>-->
+    <keydef keys="dfst-docker-quickstart" 
+      href="http://www.dita-for-small-teams.org/dfst-docker/dfst-docker-guide/getting-started/dfst-container-quick-start-01.html" scope="external" format="html">
+      <topicmeta>
+        <navtitle>DFST Docker Quick Start</navtitle>
+      </topicmeta>
+    </keydef>
     <keydef keys="github-site" href="http://github.com"  scope="external" format="html">
       <topicmeta>
         <navtitle>Github</navtitle>
@@ -27,6 +33,14 @@
       format="html">
       <topicmeta>
         <navtitle>DITA for Small Teams organization on Github</navtitle>
+      </topicmeta>
+    </keydef>
+    <keydef keys="dfst-releases" 
+      href="https://github.com/dita-for-small-teams/dita-for-small-teams/releases"  
+      scope="external" 
+      format="html">
+      <topicmeta>
+        <navtitle>DITA for Small Teams releases (GtHub)</navtitle>
       </topicmeta>
     </keydef>
     <keydef keys="exist-db-site" href="http://exist-db.org"  scope="external" format="html">
@@ -61,6 +75,11 @@
       >
       <topicmeta>
         <navtitle>Travis CI</navtitle>
+      </topicmeta>
+    </keydef>
+    <keydef keys="dita-ot-site" href="http://dita-ot.org" scope="external" format="html">
+      <topicmeta>
+        <navtitle>DITA Open Toolkit</navtitle>
       </topicmeta>
     </keydef>
 </topicgroup>

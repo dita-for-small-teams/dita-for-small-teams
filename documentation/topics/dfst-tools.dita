@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA 1.3 Topic//EN" "technicalContent/dtd/topic.dtd" [
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "technicalContent/dtd/topic.dtd" [
 ]>
 
 
@@ -12,29 +12,23 @@
 to choose from and the tools you choose may depend as much on what
 you already have available or what you're already familiar with.
 The tools presented here represent one possible set.</p>
-<p>The base DFST tool set is:<ul id = "ul_zkr_1fs_2p"><li>For distributed
-and shared access to versioned content: A version control system
-like git, Subversion, or Mercurial. This document recommends git if
-you need to make a choice. Git, in particular, has features that
-make distributed collaboration easier and there are many free services,
-such as <xref keyref = "github-site">GitHub</xref>, GitLab, and <xref
-    keyref = "bitbucket-site">BitBucket</xref>, that provide free
-or low-cost git repositories along with other collaboration features,
-such as issue trackers and wikis. It is also easy to set up a central
-shared git repository within an organization.</li>
-<li>Deliverable production: A continuous integration (<term>CI</term>)
-system like Jenkins, Hudson, or Travis CI for automating the production
-of deliverables when updates are committed to the content repository.
-This document uses Travis CI. The Docker configuration use GitLab’s
-continuous integration facility.<p>As for git, there are free and
-low-cost services like <xref keyref = "travis-ci">Travis CI</xref> that
-provide CI servers or you can quickly set up a continuous integration
-server on an internal machine. For more robust systems you can use
-services like Amazon Web Services to set up private servers in the
-cloud. Production can use the DITA Open Toolkit, ditac, or any other
-DITA production tools that can be run on the server you're using
-(which means that Windows-only tools can be a problem unless you
-set up your own Windows server).</p></li>
+<p>The base DFST tool set is:<ul id = "ul_zkr_1fs_2p"><li>For distributed and shared access to versioned content: A version control system like git,
+          Subversion, or Mercurial. This document recommends git if you need to make a choice. Git,
+          in particular, has features that make distributed collaboration easier and there are many
+          free services, such as <xref keyref="github-site">GitHub</xref>, GitLab, and <xref
+            keyref="bitbucket-site">BitBucket</xref>, that provide free or low-cost git repositories
+          along with other collaboration features, such as issue trackers and wikis. It is also easy
+          to set up a central shared git repository within an organization.</li>
+<li>Deliverable production: A continuous integration (<term>CI</term>) system like Jenkins, Hudson,
+          or Travis CI for automating the production of deliverables when updates are committed to
+          the content repository. This document uses Travis CI. The Docker configuration uses
+          GitLab’s continuous integration facility.<p>As for git, there are free and low-cost
+            services like <xref keyref="travis-ci">Travis CI</xref> that provide CI servers or you
+            can quickly set up a continuous integration server on an internal machine. For more
+            robust systems you can use services like Amazon Web Services or Microsoft Azure to set
+            up private servers in the cloud. Production can use the DITA Open Toolkit, ditac, or any
+            other DITA production tools that can be run on the server you're using (which means that
+            Windows-only tools can be a problem unless you set up your own Windows server).</p></li>
 <li>Authoring: oXygenXML, XMetal, or Adobe Framemaker. None of these are
 free but they all offer excellent DITA feature support. This document uses
 oXygenXML as the editor. In addition, a number of Web-based editors,

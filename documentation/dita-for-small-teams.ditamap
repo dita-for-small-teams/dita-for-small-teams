@@ -14,15 +14,14 @@
     </critdates>
   </topicmeta>
   <topicgroup><!--<topicmeta><navtitle>Key Definitions</navtitle></topicmeta> -->
-    <mapref
-      href="keydefs/d4st-keydefs.ditamap"/>
+    <mapref href="keydefs/d4st-keydefs.ditamap"/>
   </topicgroup>
   <topicref href="topics/dita-for-small-teams.dita">
-    <topicref href="topics/dfst-tools.dita">
-      <topicref href="topics/tools-git.dita"/>
-      <topicref href="topics/tools-exist-db.dita"/>
-      <topicref
-        href="topics/tools-basex.dita"/>
+    <topicref href="topics/dfst-tools.dita" keys="dfst-tools">
+      <topicref href="topics/tools-git.dita" keys="tool-git"/>
+      <topicref href="topics/tools-basex.dita" keys="tool-basex"/>
+      <topicref href="topics/tools-exist-db.dita" keys="tool-exist-db"/>
+      <topicref href="topics/tools-dita-ot.dita" keys="tool-dita-ot"/>
     </topicref>
   </topicref>
 </map>

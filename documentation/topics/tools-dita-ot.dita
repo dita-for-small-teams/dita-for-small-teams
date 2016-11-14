@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_hdx_w2s_2p">
+    <title>DITA Open Toolkit: General DITA Publishing and Data Processing</title>
+  <shortdesc>The DITA Open Toolkit provides general facilities for generating publishable outputs
+    from DITA source: HTML, PDF, EPUB, etc.</shortdesc>
+    <body>
+    <p>The <xref keyref="dita-ot-site"/> is the primary open-source framework for generating
+      deliverables from DITA source. It is widely used by the DITA community and integrated with
+      most DITA-aware tools.</p>
+  </body>
+  </topic>

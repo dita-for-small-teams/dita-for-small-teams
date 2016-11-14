@@ -3,11 +3,18 @@
   
   <property name="workspace-dir" location="${basedir}/.."/>
   <property name="dist-dir" location="${basedir}/dist"/>
-  <property name="dist-ghpages-dir" location="${workspace-dir}/dfst-docker-ghpages"/>
+  <property name="dist-dfst-docker-ghpages-dirname" value="dfst-docker-ghpages"/>
+  <property name="dist-dfst-docker-ghpages-dir" location="${workspace-dir}/${dist-dfst-docker-ghpages-dirname}"/>
+  <property name="dist-dfst-project-gitio-dirname" value="dita-for-small-teams.github.io"/>
+  <property name="dist-dfst-project-gitio-dir" location="${workspace-dir}/${dist-dfst-project-gitio-dirname}"/>
   <property name="release-dir" location="${basedir}/releases"/>
   <property name="dfst-dir" location="${basedir}/dfst-docker"/>
   <property name="dfst-docs-dir" location="${basedir}/dfst-docker/docs"/>
+  <property name="dfst-project-docs-dir" location="${basedir}/documentation"/>
   <property name="version" value="0-9-1"/>
+  
+  <echo>workspace-dir="${workspace-dir}"</echo>
+  <echo>dist-dfst-project-gitio-dir="${dist-dfst-project-gitio-dir}"</echo>
   
   <tstamp/>
   
@@ -36,8 +43,8 @@
     </zip>
   </target>
   
-  <target name="check-doc-source-changed">
-    <uptodate property="dfst-docs-modified">
+  <target name="check-dfst-docker-doc-source-changed">
+    <uptodate property="dfst-docker-docs-modified">
       <srcfiles dir="${dfst-docs-dir}">
         <include name="**/*" />
         <exclude name="out/**"/>
@@ -45,10 +52,22 @@
       </srcfiles>
       <identitymapper/>
     </uptodate>
-    <echo>dfst-docs-modified="${dfst-docs-modified}"</echo>
+    <echo>dfst-docs-modified="${dfst-docker-docs-modified}"</echo>
+  </target>
+
+  <target name="check-dfst-project-doc-source-changed">
+    <uptodate property="dfst-project-doc-source-modified">
+      <srcfiles dir="${dfst-project-docs-dir}">
+        <include name="**/*" />
+        <exclude name="out/**"/>
+        <exclude name="temp/**"/>
+      </srcfiles>
+      <identitymapper/>
+    </uptodate>
+    <echo>dfst-doc-source-modified="${dfst-project-doc-source-modified}"</echo>
   </target>
   
-  <target name="generate-dfst-docker-docs" depends="check-doc-source-changed" if="${dfst-docs-modified}" 
+  <target name="generate-dfst-docker-docs" depends="check-dfst-docker-doc-source-changed" if="${dfst-docker-docs-modified}" 
     description="Generate renditions of the DFST Docker documentation"
     >
     <!-- 
@@ -73,6 +92,26 @@
     </exec>
   </target>
  
+  <target name="generate-dfst-project-docs" depends="check-dfst-project-doc-source-changed" if="${dfst-project-doc-source-modified}" 
+    description="Generate renditions of the DFST project documentation"
+    >
+    <echo>Generating DFST project documentation...</echo>
+    <exec  
+      searchpath="true"
+      executable="docker"
+      failonerror="true"
+      >
+      <arg value="run"/>
+      <arg value="-v"/>
+      <arg value="${workspace-dir}:/opt/dita-ot/data"/>
+      <arg value="dfst/dita-ot"/>
+      <arg value="ant"/>
+      <arg value="-Dargs.input=/opt/dita-ot/data/dita-for-small-teams/documentation/dita-for-small-teams.ditamap"/>
+      <arg value="-Dtranstype=d4p-html5"/>
+      <arg value="-Doutput.dir=/opt/dita-ot/data/${dist-dfst-project-gitio-dirname}"/>
+    </exec>
+  </target>
+  
   <target name="publish-dfst-docker-docs" depends="generate-dfst-docker-docs"
     description="Generate the DFST Docker docs and publish to GitHub"
     >
@@ -80,14 +119,14 @@
     <exec searchpath="true"
       executable="git"
       failonerror="true"
-      dir="${dist-ghpages-dir}"
+      dir="${dist-dfst-docker-ghpages-dir}"
       >
       <arg value="pull"/>      
     </exec>
     <exec searchpath="true"
       executable="git"
       failonerror="true"
-      dir="${dist-ghpages-dir}"
+      dir="${dist-dfst-docker-ghpages-dir}"
       >
       <arg value="add"/>      
       <arg value="-A"/>      
@@ -95,7 +134,7 @@
     <exec searchpath="true"
       executable="git"
       failonerror="true"
-      dir="${dist-ghpages-dir}"
+      dir="${dist-dfst-docker-ghpages-dir}"
       >
       <arg value="commit"/>      
       <arg value="-m"/>      
@@ -104,11 +143,50 @@
     <exec searchpath="true"
       executable="git"
       failonerror="true"
-      dir="${dist-ghpages-dir}"
+      dir="${dist-dfst-docker-ghpages-dir}"
       >
       <arg value="push"/>      
       <arg value="origin"/>      
       <arg value="gh-pages"/>      
+    </exec>
+  </target>
+
+  <target name="publish-dfst-project-docs" depends="generate-dfst-project-docs"
+    description="Generate the DFST project docs and publish to GitHub"
+    >
+    <!-- Do git commit and push of the generated docs -->
+    <exec searchpath="true"
+      executable="git"
+      failonerror="true"
+      dir="${dist-dfst-project-gitio-dir}"
+      >
+      <arg value="pull"/>      
+    </exec>
+    <exec searchpath="true"
+      executable="git"
+      failonerror="true"
+      dir="${dist-dfst-project-gitio-dir}"
+      >
+      <arg value="add"/>      
+      <arg value="-A"/>      
+    </exec>
+    <exec searchpath="true"
+      executable="git"
+      failonerror="true"
+      dir="${dist-dfst-project-gitio-dir}"
+      >
+      <arg value="commit"/>      
+      <arg value="-m"/>      
+      <arg value="Documentation updated via Ant process on ${TODAY} by ${user.name}"/>      
+    </exec>
+    <exec searchpath="true"
+      executable="git"
+      failonerror="true"
+      dir="${dist-dfst-project-gitio-dir}"
+      >
+      <arg value="push"/>      
+      <arg value="origin"/>      
+      <arg value="master"/>      
     </exec>
   </target>
 </project>
