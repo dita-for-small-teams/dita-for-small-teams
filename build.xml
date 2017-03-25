@@ -11,7 +11,7 @@
   <property name="dfst-dir" location="${basedir}/dfst-docker"/>
   <property name="dfst-docs-dir" location="${basedir}/dfst-docker/docs"/>
   <property name="dfst-project-docs-dir" location="${basedir}/documentation"/>
-  <property name="version" value="0-9-3"/>
+  <property name="version" value="0-9-6"/>
   
   <echo>workspace-dir="${workspace-dir}"</echo>
   <echo>dist-dfst-project-gitio-dir="${dist-dfst-project-gitio-dir}"</echo>
@@ -27,6 +27,7 @@
     <copy todir="${dist-dir}/dfst-docker">
       <fileset dir="${dfst-dir}">
         <include name="dfst"/>
+        <include name="docker-compose*.yml"/>
         <include name="README.md"/>
         <include name="LICENSE"/>
         <include name="containers/**/*"/>
@@ -37,9 +38,9 @@
   
   <target name="release" depends="dist" description="Make a release Zip for the distribution">
     <zip destfile="${release-dir}/dfst-docker-${version}.zip">
-      <fileset dir="${dist-dir}">
+      <zipfileset dir="${dist-dir}" >
         <include name="*/**"/>
-      </fileset>
+      </zipfileset>
     </zip>
   </target>
   
