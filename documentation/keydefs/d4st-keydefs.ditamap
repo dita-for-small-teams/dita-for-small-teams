@@ -3,6 +3,18 @@
 <map>
  <title>Key definitions for the DITA for Small Teams document</title>
   <topicgroup>
+    <topicmeta>
+      <navtitle>Variables</navtitle>
+    </topicmeta>
+    <keydef keys="d4st-abbrev">
+      <topicmeta>
+        <keywords>
+          <keyword>D4ST</keyword>
+        </keywords>
+      </topicmeta>
+    </keydef>
+  </topicgroup>
+  <topicgroup>
     <!--<topicmeta>
       <navtitle>External Web sites</navtitle>
     </topicmeta>-->
