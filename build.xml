@@ -105,7 +105,7 @@
       <arg value="run"/>
       <arg value="-v"/>
       <arg value="${workspace-dir}:/opt/dita-ot/data"/>
-      <arg value="dfst/dita-ot"/>
+      <arg value="dita4publishers/dita-ot:1.8.5"/>
       <arg value="ant"/>
       <arg value="-Dargs.input=/opt/dita-ot/data/dita-for-small-teams/documentation/dita-for-small-teams.ditamap"/>
       <arg value="-Dtranstype=d4p-html5"/>
