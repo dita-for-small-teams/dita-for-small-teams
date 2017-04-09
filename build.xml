@@ -3,30 +3,30 @@
   
   <property name="workspace-dir" location="${basedir}/.."/>
   <property name="dist-dir" location="${basedir}/dist"/>
-  <property name="dist-dfst-docker-ghpages-dirname" value="dfst-docker-ghpages"/>
-  <property name="dist-dfst-docker-ghpages-dir" location="${workspace-dir}/${dist-dfst-docker-ghpages-dirname}"/>
-  <property name="dist-dfst-project-gitio-dirname" value="dita-for-small-teams.github.io"/>
-  <property name="dist-dfst-project-gitio-dir" location="${workspace-dir}/${dist-dfst-project-gitio-dirname}"/>
+  <property name="dist-d4st-docker-ghpages-dirname" value="d4st-docker-ghpages"/>
+  <property name="dist-d4st-docker-ghpages-dir" location="${workspace-dir}/${dist-d4st-docker-ghpages-dirname}"/>
+  <property name="dist-d4st-project-gitio-dirname" value="dita-for-small-teams.github.io"/>
+  <property name="dist-d4st-project-gitio-dir" location="${workspace-dir}/${dist-d4st-project-gitio-dirname}"/>
   <property name="release-dir" location="${basedir}/releases"/>
-  <property name="dfst-dir" location="${basedir}/dfst-docker"/>
-  <property name="dfst-docs-dir" location="${basedir}/dfst-docker/docs"/>
-  <property name="dfst-project-docs-dir" location="${basedir}/documentation"/>
-  <property name="version" value="0-9-6"/>
+  <property name="d4st-dir" location="${basedir}/d4st-docker"/>
+  <property name="d4st-docs-dir" location="${basedir}/d4st-docker/docs"/>
+  <property name="d4st-project-docs-dir" location="${basedir}/documentation"/>
+  <property name="version" value="0-9-7"/>
   
   <echo>workspace-dir="${workspace-dir}"</echo>
-  <echo>dist-dfst-project-gitio-dir="${dist-dfst-project-gitio-dir}"</echo>
+  <echo>dist-d4st-project-gitio-dir="${dist-d4st-project-gitio-dir}"</echo>
   
   <tstamp/>
   
   <target name="dist" description="Create distribution package locally">
-    <delete includeemptydirs="true">
-      <fileset dir="${dist-dir}/dfst-docker">
+    <delete includeemptydirs="true" failonerror="false">
+      <fileset dir="${dist-dir}/d4st-docker">
         <include name="**/*" />
       </fileset>
     </delete>
-    <copy todir="${dist-dir}/dfst-docker">
-      <fileset dir="${dfst-dir}">
-        <include name="dfst"/>
+    <copy todir="${dist-dir}/d4st-docker">
+      <fileset dir="${d4st-dir}">
+        <include name="d4st"/>
         <include name="docker-compose*.yml"/>
         <include name="README.md"/>
         <include name="LICENSE"/>
@@ -37,45 +37,45 @@
   </target>
   
   <target name="release" depends="dist" description="Make a release Zip for the distribution">
-    <zip destfile="${release-dir}/dfst-docker-${version}.zip">
+    <zip destfile="${release-dir}/d4st-docker-${version}.zip">
       <zipfileset dir="${dist-dir}" >
         <include name="*/**"/>
       </zipfileset>
     </zip>
   </target>
   
-  <target name="check-dfst-docker-doc-source-changed">
-    <uptodate property="dfst-docker-docs-modified">
-      <srcfiles dir="${dfst-docs-dir}">
+  <target name="check-d4st-docker-doc-source-changed">
+    <uptodate property="d4st-docker-docs-modified">
+      <srcfiles dir="${d4st-docs-dir}">
         <include name="**/*" />
         <exclude name="out/**"/>
         <exclude name="temp/**"/>
       </srcfiles>
       <identitymapper/>
     </uptodate>
-    <echo>dfst-docs-modified="${dfst-docker-docs-modified}"</echo>
+    <echo>d4st-docs-modified="${d4st-docker-docs-modified}"</echo>
   </target>
 
-  <target name="check-dfst-project-doc-source-changed">
-    <uptodate property="dfst-project-doc-source-modified">
-      <srcfiles dir="${dfst-project-docs-dir}">
+  <target name="check-d4st-project-doc-source-changed">
+    <uptodate property="d4st-project-doc-source-modified">
+      <srcfiles dir="${d4st-project-docs-dir}">
         <include name="**/*" />
         <exclude name="out/**"/>
         <exclude name="temp/**"/>
       </srcfiles>
       <identitymapper/>
     </uptodate>
-    <echo>dfst-doc-source-modified="${dfst-project-doc-source-modified}"</echo>
+    <echo>d4st-doc-source-modified="${d4st-project-doc-source-modified}"</echo>
   </target>
   
-  <target name="generate-dfst-docker-docs" depends="check-dfst-docker-doc-source-changed" if="${dfst-docker-docs-modified}" 
+  <target name="generate-d4st-docker-docs" depends="check-d4st-docker-doc-source-changed" if="${d4st-docker-docs-modified}" 
     description="Generate renditions of the DFST Docker documentation"
     >
     <!-- 
-      docker run -v /Users/ekimber/workspace-dfst:/opt/dita-ot/data dfst/dita-ot  
-      ant -Dargs.input=/opt/dita-ot/data/dita-for-small-teams/dfst-docker/docs/dfst-docker-guide.ditamap  
+      docker run -v /Users/ekimber/workspace-dfst:/opt/dita-ot/data d4st/dita-ot  
+      ant -Dargs.input=/opt/dita-ot/data/dita-for-small-teams/d4st-docker/docs/d4st-docker-guide.ditamap  
       -Dtranstype=d4p-html5   
-      -Doutput.dir=/opt/dita-ot/data/dfst-docker-ghpages
+      -Doutput.dir=/opt/dita-ot/data/d4st-docker-ghpages
       -->
     <exec  
       searchpath="true"
@@ -85,15 +85,15 @@
       <arg value="run"/>
       <arg value="-v"/>
       <arg value="${workspace-dir}:/opt/dita-ot/data"/>
-      <arg value="dfst/dita-ot"/>
+      <arg value="dita4publishers/dita-ot:1.8.5"/>
       <arg value="ant"/>
-      <arg value="-Dargs.input=/opt/dita-ot/data/dita-for-small-teams/dfst-docker/docs/dfst-docker-guide.ditamap"/>
+      <arg value="-Dargs.input=/opt/dita-ot/data/dita-for-small-teams/d4st-docker/docs/d4st-docker-guide.ditamap"/>
       <arg value="-Dtranstype=d4p-html5"/>
-      <arg value="-Doutput.dir=/opt/dita-ot/data/dfst-docker-ghpages"/>
+      <arg value="-Doutput.dir=/opt/dita-ot/data/d4st-docker-ghpages"/>
     </exec>
   </target>
  
-  <target name="generate-dfst-project-docs" depends="check-dfst-project-doc-source-changed" if="${dfst-project-doc-source-modified}" 
+  <target name="generate-d4st-project-docs" depends="check-d4st-project-doc-source-changed" if="${d4st-project-doc-source-modified}" 
     description="Generate renditions of the DFST project documentation"
     >
     <echo>Generating DFST project documentation...</echo>
@@ -105,29 +105,29 @@
       <arg value="run"/>
       <arg value="-v"/>
       <arg value="${workspace-dir}:/opt/dita-ot/data"/>
-      <arg value="dita4publishers/dita-ot:1.8.5"/>
+      <arg value="d4st/dita-ot"/>
       <arg value="ant"/>
       <arg value="-Dargs.input=/opt/dita-ot/data/dita-for-small-teams/documentation/dita-for-small-teams.ditamap"/>
       <arg value="-Dtranstype=d4p-html5"/>
-      <arg value="-Doutput.dir=/opt/dita-ot/data/${dist-dfst-project-gitio-dirname}"/>
+      <arg value="-Doutput.dir=/opt/dita-ot/data/${dist-d4st-project-gitio-dirname}"/>
     </exec>
   </target>
   
-  <target name="publish-dfst-docker-docs" depends="generate-dfst-docker-docs"
+  <target name="publish-d4st-docker-docs" depends="generate-d4st-docker-docs"
     description="Generate the DFST Docker docs and publish to GitHub"
     >
     <!-- Do git commit and push of the generated docs -->
     <exec searchpath="true"
       executable="git"
       failonerror="true"
-      dir="${dist-dfst-docker-ghpages-dir}"
+      dir="${dist-d4st-docker-ghpages-dir}"
       >
       <arg value="pull"/>      
     </exec>
     <exec searchpath="true"
       executable="git"
       failonerror="true"
-      dir="${dist-dfst-docker-ghpages-dir}"
+      dir="${dist-d4st-docker-ghpages-dir}"
       >
       <arg value="add"/>      
       <arg value="-A"/>      
@@ -135,7 +135,7 @@
     <exec searchpath="true"
       executable="git"
       failonerror="true"
-      dir="${dist-dfst-docker-ghpages-dir}"
+      dir="${dist-d4st-docker-ghpages-dir}"
       >
       <arg value="commit"/>      
       <arg value="-m"/>      
@@ -144,7 +144,7 @@
     <exec searchpath="true"
       executable="git"
       failonerror="true"
-      dir="${dist-dfst-docker-ghpages-dir}"
+      dir="${dist-d4st-docker-ghpages-dir}"
       >
       <arg value="push"/>      
       <arg value="origin"/>      
@@ -152,21 +152,21 @@
     </exec>
   </target>
 
-  <target name="publish-dfst-project-docs" depends="generate-dfst-project-docs"
+  <target name="publish-d4st-project-docs" depends="generate-d4st-project-docs"
     description="Generate the DFST project docs and publish to GitHub"
     >
     <!-- Do git commit and push of the generated docs -->
     <exec searchpath="true"
       executable="git"
       failonerror="true"
-      dir="${dist-dfst-project-gitio-dir}"
+      dir="${dist-d4st-project-gitio-dir}"
       >
       <arg value="pull"/>      
     </exec>
     <exec searchpath="true"
       executable="git"
       failonerror="true"
-      dir="${dist-dfst-project-gitio-dir}"
+      dir="${dist-d4st-project-gitio-dir}"
       >
       <arg value="add"/>      
       <arg value="-A"/>      
@@ -174,7 +174,7 @@
     <exec searchpath="true"
       executable="git"
       failonerror="true"
-      dir="${dist-dfst-project-gitio-dir}"
+      dir="${dist-d4st-project-gitio-dir}"
       >
       <arg value="commit"/>      
       <arg value="-m"/>      
@@ -183,7 +183,7 @@
     <exec searchpath="true"
       executable="git"
       failonerror="true"
-      dir="${dist-dfst-project-gitio-dir}"
+      dir="${dist-d4st-project-gitio-dir}"
       >
       <arg value="push"/>      
       <arg value="origin"/>      

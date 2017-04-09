@@ -18,10 +18,10 @@
     <!--<topicmeta>
       <navtitle>External Web sites</navtitle>
     </topicmeta>-->
-    <keydef keys="dfst-docker-quickstart" 
-      href="http://www.dita-for-small-teams.org/dfst-docker/dfst-docker-guide/getting-started/dfst-container-quick-start-01.html" scope="external" format="html">
+    <keydef keys="d4st-docker-quickstart" 
+      href="http://www.dita-for-small-teams.org/d4st-docker/d4st-docker-guide/getting-started/d4st-container-quick-start-01.html" scope="external" format="html">
       <topicmeta>
-        <navtitle>DFST Docker Quick Start</navtitle>
+        <navtitle>D4ST Docker Quick Start</navtitle>
       </topicmeta>
     </keydef>
     <keydef keys="github-site" href="http://github.com"  scope="external" format="html">
@@ -52,7 +52,7 @@
       scope="external" 
       format="html">
       <topicmeta>
-        <navtitle>DITA for Small Teams releases (GtHub)</navtitle>
+        <navtitle>DITA for Small Teams releases (GitHub)</navtitle>
       </topicmeta>
     </keydef>
     <keydef keys="exist-db-site" href="http://exist-db.org"  scope="external" format="html">

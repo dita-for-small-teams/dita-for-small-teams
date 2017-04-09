@@ -2,20 +2,19 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "technicalContent/dtd/topic.dtd" [
 ]><topic id="topic_x3q_sxr_2p" xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/">
   <title>DITA For Small Teams</title>
-  <shortdesc>The DITA for Small Teams project (DFST) demonstrates how to use free and low-cost tools
+  <shortdesc>The DITA for Small Teams project (D4ST) demonstrates how to use free and low-cost tools
     to manage DITA content for authoring and delivery as appropriate for small writing
     teams.</shortdesc>
   <body>
     <p>The DITA for Small Teams project has the following goals:<ol>
-        <li><p>Document the fact that it is possible to set up a useful system for DITA authoring,
-            management, and product using open-source tools and tools commonly available in
-            enterprises.</p></li>
-        <li><p>Provide a “download and use” set of tools reflecting the DFST approach to serve as a
-            starting point for exploring DITA generally and setting up a system for your own
-            use.</p></li>
+        <li>Document the fact that it is possible to set up a useful system for DITA authoring,
+          management, and product using open-source tools and tools commonly available in
+          enterprises.</li>
+        <li>Provide a “download and use” set of tools reflecting the D4ST approach to serve as a
+          starting point for exploring DITA generally and setting up a system for your own use.</li>
       </ol></p>
-    <p><b>Quick Start</b>: If you would like to try the current Docker-based DFST system, see <xref
-        keyref="dfst-docker-quickstart"/>.</p>
+    <p><b>Quick Start</b>: If you would like to try the current Docker-based D4ST system, see <xref
+        keyref="d4st-docker-quickstart"/>.</p>
     <p>DITA for Small Teams is an open-source project. The project is managed on <xref
         keyref="github-site">Github</xref> as the <xref keyref="dita-for-small-teams-github">DITA
         for Small Teams Github organization</xref>. The main project the <xref
@@ -25,11 +24,6 @@
         keyref="linkedIn-dfst-group">LinkedIn DITA for Small Teams group</xref> managed by Darryl
       Tewes. They are related only by coincidence of names and a common desire to support the use of
       DITA by small teams.</note>
-    <p>For the second of these goals the DFST team is actively working on a Docker-based solution
-      with a goal of having something working in the May 2017 time frame. The code for this activity
-      is on the project’s develop branch. As of November 2016 the code is working well enough to try
-      but isn't yet ready for production use. You can get the current code from GitHub (<xref
-        keyref="dfst-releases"/>).</p>
     <p>Authoring and managing DITA content for a team of writers requires the following minimum
       general facilities:<ul id="ul_uqf_pzr_2p">
         <li>Distributed access to and shared management of the content so that writers can
@@ -60,13 +54,13 @@
       configure.</p>
     <p>In most cases it should be possible, following the guidelines provided here, to set up a
       working collaborative DITA authoring and production environment in just a few hours.</p>
-    <p>The DFST project’s Docker-based solution, once realized, will make it about as easy as it can
-      be to provision and use the DFST approach. Docker makes it possible to package disparate tools
-      together in a convenience but flexible way and manage them as a logical unit. Because each
-      tool or supporting component is managed as a separate Docker container it is relatively easy
-      to adapt the set of tools and configuration details to suit your specific needs. The same
-      Docker containers can be run on a single personal machine, on a shared server machine within
-      an enterprise, or in a hosted environment such as Amazon Web Services or Microsoft Azure with
-      a minimum of effort.</p>
+    <p>The D4ST project’s Docker-based solution makes it about as easy as it can be to provision and
+      use the D4ST approach. Docker makes it possible to package disparate tools together in a
+      convenience but flexible way and manage them as a logical unit. Because each tool or
+      supporting component is managed as a separate Docker container it is relatively easy to adapt
+      the set of tools and configuration details to suit your specific needs. The same Docker
+      containers can be run on a single personal machine, on a shared server machine within an
+      enterprise, or in a hosted environment such as Amazon Web Services or Microsoft Azure with a
+      minimum of effort.</p>
   </body>
 </topic>
